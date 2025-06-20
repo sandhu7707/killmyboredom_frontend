@@ -1,0 +1,115 @@
+@import '~leaflet/dist/leaflet.css';
+
+.map-container {
+    position: relative;
+}
+
+.map-overlay {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+}
+
+
+.map-overlay-on-input-blur{
+    opacity: 1;
+    background: radial-gradient(circle, #ffffffd4 0%, #ffffff 100%);
+}
+
+.map-overlay-on-input-focus{
+    opacity: 0;
+    background: radial-gradient(circle, #ffffff38 0%, #ffffff71 100%);
+}
+
+.inactive-map-overlay {
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    transition: opacity 0.5s ease;
+    top: 0;
+}
+
+.map-overlay-expanded {
+    height: 100%;
+    width: 100%;
+}
+
+.map-overlay-heading{
+    color: white;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    /* font-size: x-large; */
+}
+
+.map-overlay-greeting{
+    height: 100%;
+    width: 75%;
+    margin-inline: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.business-registration{
+    position: absolute;
+    color: #ffffff00;
+    font-size: 1.5vw;
+    font-weight: 900;
+    left: 0;
+    bottom: 0;
+    height: 15vw;
+    width: 15vw;
+    background: linear-gradient(45deg, #000000d4 0%, #000000d4 30%,#ffffff00 31%, #ffffff00 100%);
+    shape-rendering: crispEdges;
+    z-index: 2;
+    transition: height 0.5s ease, width 0.5s ease, color 0.5s ease;
+    
+}
+
+.business-registration:hover, .business-registration:focus{
+    height: 25vw;
+    width: 25vw;
+    border: 0;
+    color: #ffffff;
+}
+
+.business-registration-content{
+    position: absolute;
+    z-index: 2;
+    cursor: pointer;
+    margin-left: 2vw;
+    margin-bottom: 2vw;
+    left: 0;
+    bottom: 0;
+}
+
+.business-registration-content:focus, .business-registration-content:hover{
+    transition: font-size 0.5s ease;
+    font-size: 1.7vw;
+    color: #ffffff;
+}
+
+.buisiness-registration-page-turn{
+    height: 100%;
+    transform: scaleX(-1.01) scaleY(1.01);
+}
+
+#map{
+  height: 100vh;
+  z-index: 0;
+  box-sizing: border-box;
+}
+
+.map-input{
+    background-color: '#000000d4'
+}
+
+.map-menu{
+    position: absolute;
+    width: 100%;
+    top: 0;
+    z-index: 6;
+    background-color: rgba(0, 0, 0, 0.521);;
+}

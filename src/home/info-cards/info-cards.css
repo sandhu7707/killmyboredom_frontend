@@ -1,0 +1,19 @@
+.card-heading{
+    color: rgb(255, 255, 255);
+    font-size: 5vw;
+    font-weight: 1000;
+}
+
+.cards-intro{
+    margin: auto;
+    color: rgb(255, 255, 255);
+    font-size: 5vw;
+    font-weight: 1000;
+}
+
+.card-heading-overlay{
+    height: 100%; 
+    width: 100%;
+    transition: opacity 0.5s ease;
+    background: radial-gradient(circle,rgba(0, 0, 0, 0.88) 0%,rgba(0, 0, 0, 0) 100%);
+}
