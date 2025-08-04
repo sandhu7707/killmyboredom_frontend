@@ -1,9 +1,11 @@
-import { useEffect, useRef } from "react";
-import MapArea from "./map-area/map-area";
+import { useContext, useEffect, useRef } from "react";
+import MapArea from "../map-area/map-area";
 import InfoCards from "./info-cards/info-cards";
 import IconButton from '@mui/joy/IconButton'
 import { AiFillCaretUp } from "react-icons/ai";
 import './home.css'
+import SignInUser from "../signin-user/signin-user";
+import { UserContext } from "../utils/user-utils";
 
 const cardsInfo = {cardsInfo: [
   { headingId: 'card-0', imgSrc: '/gyms.png', heading: 'Explore Gyms' },
@@ -11,77 +13,40 @@ const cardsInfo = {cardsInfo: [
   { headingId: 'card-2', imgSrc: '/events.png', heading: 'Discover Events' },
 ], cardsWidthVW: 50}
 
-function disableDefaultScroll() {
-  document.getElementsByTagName('html')[0].style.overflow = 'hidden'
-  document.getElementsByTagName('body')[0].style.overflow = 'hidden'
-}
-
-function reenableDefaultScroll() {
-  document.getElementsByTagName('html')[0].style.overflow = 'scroll'
-  document.getElementsByTagName('body')[0].style.overflow = 'scroll'
-}
-
-
 export default function Home() {
 
-  const scrollValueRef = useRef(0)
-  const touchStartValueRef = useRef(null)
-  const translatingContentRef = useRef(null)
   const videoRef = useRef(null)
   const appNameRef = useRef(null)
   const cardsRef = useRef(null)
   const appNameContainerRef = useRef(null)
   const easyScrollButtonRef = useRef(null)
   const greetScreenRef = useRef(null)
+  const innerHeightRef = useRef(null)
 
-  const handleMouseWheel = (e) => {
-    let newScrollValue = scrollValueRef.current + e.deltaY * 0.5;
-
-    newScrollValue = newScrollValue < 0 ? 0 : newScrollValue;
-    newScrollValue = newScrollValue > 3 * window.innerHeight ? 3 * window.innerHeight : newScrollValue
-    scrollValueRef.current = newScrollValue;
-
-  }
-
-  const handleTouchMove = (e) => {
-    let scrolledBy = touchStartValueRef.current.y - e.changedTouches[0].clientY
-    scrolledBy = scrolledBy > 20 ? 20 : scrolledBy;
-    let newScrollValue = scrollValueRef.current + scrolledBy
-
-    newScrollValue = newScrollValue < 0 ? 0 : newScrollValue;
-    newScrollValue = newScrollValue > 3 * window.innerHeight ? 3 * window.innerHeight : newScrollValue
-
-    scrollValueRef.current = newScrollValue;
-  }
-
-  const handleTouchStart = (e) => { touchStartValueRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY } }
+  const html = document.getElementsByTagName('html')[0];
+  const body = document.getElementsByTagName('html')[0];
+  const scrollingElement = html.scrollHeight >  window.innerHeight ? html : body;  
 
 
   useEffect(() => {
-    disableDefaultScroll()
-    window.addEventListener('mousewheel', handleMouseWheel)
-    window.addEventListener('touchmove', handleTouchMove)
-    window.addEventListener('touchstart', handleTouchStart)
+    const html = document.getElementsByTagName('html')[0];
+    const body = document.getElementsByTagName('html')[0];
+    const scrollingElement = html.scrollHeight >  window.innerHeight ? html : body;  
 
-    let lastFrameTime = performance.now()
+    innerHeightRef.current = window.innerHeight
     let animationLoopId;
 
     const handleAnimations = () => {
 
-      if(performance.now() - lastFrameTime < 300){
-        requestAnimationFrame(handleAnimations)
-        return
-      }
-      
-      lastFrameTime = performance.now()
-      //needed to give proper size in mobile user agents
-      if(scrollValueRef.current === 0){
-        greetScreenRef.current.style.height = `${window.innerHeight}px`
+      // needed to give proper size in mobile user agents
+      if(scrollingElement.scrollTop === 0){
+        greetScreenRef.current.style.height = `${innerHeightRef.current}px`
       }
 
-      handleScrollDrivenAnimations(scrollValueRef.current, appNameContainerRef.current, translatingContentRef.current, cardsRef.current, easyScrollButtonRef.current)
+      let scrollVal = scrollingElement.scrollTop
+      handleScrollDrivenAnimations(scrollVal, appNameContainerRef.current, cardsRef.current, easyScrollButtonRef.current, innerHeightRef.current)
       
-      if(scrollValueRef.current > window.innerHeight/2){
+      if(scrollVal > innerHeightRef.current/4){
           projectVideoToAppName(videoRef.current, appNameRef.current)
       }
       else{
@@ -96,19 +61,18 @@ export default function Home() {
     animationLoopId = requestAnimationFrame(handleAnimations)
 
     return () => {
-      reenableDefaultScroll();
-      window.removeEventListener('mousewheel', handleMouseWheel)
-      window.removeEventListener('touchmove', handleTouchMove)
-      window.removeEventListener('touchstart', handleTouchStart)
       cancelAnimationFrame(animationLoopId)
     }
   }, [])
+
+  const {user} = useContext(UserContext)
+
   return (
     <div className="home-container">
-      <div ref={translatingContentRef} className="translating-content">
+      <div className="translating-content">
         <div ref={greetScreenRef} id="greet-screen" className="greet-screen">
           <div className="sign-in-container">
-
+            {!user && <SignInUser></SignInUser>}
           </div>
           <div ref={appNameContainerRef} className='app-name-container'>
             <div ref={appNameRef} id="appName" className='app-name'>
@@ -128,7 +92,15 @@ export default function Home() {
       </div>
 
       <div ref={easyScrollButtonRef} className="easy-scroll-container">
-        <IconButton variant="outlined" onClick={() => { scrollValueRef.current = 0 }} sx={{width: '100%', height: '100%'}}>
+        <IconButton 
+          variant="outlined" 
+          onClick={() => {
+            scrollingElement.scrollTo(0,0)
+            innerHeightRef.current = window.innerHeight
+          }} 
+            
+          sx={{width: '100%', height: '100%'}}
+        >  
           <AiFillCaretUp style={{height: '100%', width: '100%'}}/>
         </IconButton>
       </div>
@@ -136,23 +108,22 @@ export default function Home() {
   )
 }
 
-function handleScrollDrivenAnimations(scrollValue, appName, translatingContent, cards, easyScrollButton) {
+function handleScrollDrivenAnimations(scrollValue, appName, cards, easyScrollButton, innerHeight) {
 
-  if (scrollValue < window.innerHeight / 2) {
-
-    let scroll = scrollValue / window.innerHeight
-    if (window.innerHeight > window.innerWidth) {
+  if (scrollValue < innerHeight / 2) {
+    appName.style.color = 'white'
+    let scroll = scrollValue / innerHeight
+    if (innerHeight > window.innerWidth) {
       appName.style.fontSize = `${20 - scroll * 10}vw`
     }
     else {
       appName.style.fontSize = `${20 - scroll * 10}vh`
     }
-    translatingContent.style.transform = `translateY(-${scrollValue}px)`
     cards.style.transform = `translateX(0px)`
     easyScrollButton.style.visibility = 'hidden'
   }
   else {
-    if (window.innerHeight > window.innerWidth) {
+    if (innerHeight > window.innerWidth) {
       appName.style.fontSize = `15vw`
     }
     else {
@@ -160,19 +131,16 @@ function handleScrollDrivenAnimations(scrollValue, appName, translatingContent, 
     }
   }
 
-  if (scrollValue > window.innerHeight/2 && scrollValue < 2 * window.innerHeight) {
+  if (scrollValue > innerHeight/2 && scrollValue <  innerHeight) {
 
-    let newScrollValue = scrollValue - window.innerHeight
 
-    newScrollValue = (newScrollValue / (window.innerHeight)) * (cards.getBoundingClientRect().width)
-
+    let newScrollValue = scrollValue - innerHeight/2
+    newScrollValue = (parseFloat(newScrollValue) / parseFloat(0.5*innerHeight)) * (cards.getBoundingClientRect().width-window.innerWidth/2)
     newScrollValue = newScrollValue > cards.getBoundingClientRect().width - window.innerWidth ? cards.getBoundingClientRect().width - window.innerWidth : newScrollValue
 
     cards.style.transform = `translateX(-${newScrollValue}px)`
 
-    translatingContent.style.transform = `translateY(-${window.innerHeight / 2}px)`
     easyScrollButton.style.visibility = 'visible'
-
 
     let scroll = newScrollValue * 100 / window.innerWidth
 
@@ -188,15 +156,8 @@ function handleScrollDrivenAnimations(scrollValue, appName, translatingContent, 
   }
 
 
-  if (scrollValue > 2 * window.innerHeight) {
+  if (scrollValue > innerHeight) {
     cards.style.transform = `translateX(-${cards.getBoundingClientRect().width - window.innerWidth}px)`
-    let newScrollValue = scrollValue - window.innerHeight
-
-    newScrollValue = newScrollValue > translatingContent.getBoundingClientRect().height - window.innerHeight ?
-      translatingContent.getBoundingClientRect().height - window.innerHeight : newScrollValue;
-
-    translatingContent.style.transform = `translateY(-${newScrollValue}px)`
-    
     easyScrollButton.style.visibility = 'visible'
   }
 

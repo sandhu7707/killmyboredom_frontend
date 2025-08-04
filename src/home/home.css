@@ -1,3 +1,6 @@
+html, body{
+  scroll-behavior: smooth;
+}
 
 .greet-screen{
   height: 100vh;
@@ -17,16 +20,16 @@
 
 .horizontal-cards{
   position: relative;
+  overflow: hidden;
   height: 50vh;
 }
 
 #horizontal-cards-content{
   position: absolute;
   display: flex;
-  overflow: hidden;
   height: 50vh;
   box-sizing: border-box;
-  transition: transform 1s ease;
+  transition: transform 0.2s ease;
 }
 
 .app-name-container{
@@ -39,6 +42,7 @@
 }
 
 .app-name{
+  color: white;
   margin-top: auto;
   margin-inline: auto;
   font-weight: 1000;
@@ -53,19 +57,20 @@
 
 .easy-scroll-container {
     position: fixed;
-    top: 0;
+    bottom: 0;
     right: 0;
     z-index: 5;
     width: 10vw;
     height: 10vw;
+    visibility: hidden;
 }
 
 .translating-content{
-  transition: transform 1s ease;
+  /* transition: transform 1s ease; */
 }
 
 .app-name-container{
-  transition: font-size 0.5s ease
+  /* transition: font-size 0.5s ease */
 }
 
 .sign-in-container {
@@ -76,6 +81,8 @@
   width: 100%;
   z-index: 1;
 }
+
+
 
 @media screen and (orientation:portrait){
     .app-name-container{    

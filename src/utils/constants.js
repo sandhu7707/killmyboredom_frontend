@@ -1,0 +1,9 @@
+export const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+export const api_check_username = 'users/check-username-availability'
+export const api_businessdata = 'businessData'
+export const api_geocode = 'mapping/geocode/'
+export const api_user = 'users'
+export const api_sign_in = 'sign-in'
+export const api_business_coords = 'business-data/coords'
+export const api_business_data = 'business-data'
+export const api_registered_businesses = 'registered-businesses'

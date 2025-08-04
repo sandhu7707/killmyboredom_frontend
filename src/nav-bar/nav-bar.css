@@ -1,0 +1,65 @@
+.home-link .home-link-content{
+    font-weight: 900;
+    font-size: 7vw;
+    padding: 0;
+    color: white;
+    display: inline;
+}
+
+.home-link{
+    float: left;
+    text-decoration: none
+}
+
+.navbar-container{
+    display: flex;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.521);
+}
+
+.account-button{
+    position: absolute;
+    z-index: 3;
+    color: rgb(255, 255, 255);
+    right: 1vw;
+    top: 1vw;
+    font-size: 5vw;
+    cursor: pointer;
+}
+
+.collapsible-account-options{
+    transition: max-height 1s ease;
+    overflow: hidden;
+}
+
+.account-button .collapsible-account-options{
+    max-height: 0;
+}
+
+.account-button:where(:hover,:focus) .collapsible-account-options{
+    max-height: 100vh;
+}
+
+.account-option{
+    background-color: rgb(255, 255, 255);
+    border: solid 1px black;
+    padding: 1em;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.account-option:where(:hover, :focus){
+    background-color: rgba(0, 0, 0, 0.322);
+}
+
+.add-business-option{
+    background-color: rgba(0, 0, 0, 0.322);
+}
+
+.add-business-option:where(:hover, :focus){
+    background-color: rgb(0, 0, 0);
+}
+
+.add-business-option:where(:hover, :focus) h2{
+    color: rgba(255, 255, 255, 1);
+}
