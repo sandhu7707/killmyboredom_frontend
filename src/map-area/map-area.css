@@ -81,8 +81,16 @@
     transition: background-color 1s ease, color 1s ease;
 }
 
-.business-registration:hover .business-registration-content{
-    visibility: visible;
+.business-registration-content{
+    overflow: hidden;
+}
+
+.business-registration:hover .business-registration-content, .business-registration:focus .business-registration-content{
+    max-height: 50vh;
+}
+
+.business-registration:not(:hover) .business-registration-content, .business-registration:not(:focus) .business-registration-content{
+    max-height: 0;
 }
 
 .business-registration:hover, .business-registration:focus{
