@@ -15,6 +15,7 @@ import EventsDetails from "./events-details/events-details";
 import { api_businessdata } from "../utils/constants";
 import { useNavigate } from "react-router";
 import { addToken } from "../utils/user-utils";
+import { MdCheck } from "react-icons/md";
 
 export default function BusinessRegistration({businessData, setBusinessData, onSave}){
     const [activeStep, setActiveStep] = useState(0)
@@ -127,25 +128,27 @@ export default function BusinessRegistration({businessData, setBusinessData, onS
     }, [updateFontSize])
 
     return(
-        <div className='page-container'>
-            <Stepper>
-                {steps.map((it, idx) => (
-                    <Step
-                        key={it.heading}
-                        sx={{fontSize: stepHeadingFontSize}}
-                        className="step-heading"
-                        indicator={
-                            <StepIndicator className="step-indicator" variant={`${activeStep > idx ? 'solid' : 'soft'}`} color='primary'>
-                                {idx + 1}
-                            </StepIndicator>
-                        }
-                    >
-                        <StepButton sx={{marginInlineStart: '0.5vw'}} onClick={() => handleNavigationTo(idx)}>{it.heading}</StepButton>
-                    </Step>
-                ))}
-            </Stepper>
-            <div className='step-content'>
-                {steps[activeStep].component}
+        <div className="page-container">
+            <div className='page-content'>
+                <Stepper>
+                    {steps.map((it, idx) => (
+                        <Step
+                            key={it.heading}
+                            sx={{fontSize: stepHeadingFontSize}}
+                            className="step-heading"
+                            indicator={
+                                <StepIndicator sx={{backgroundColor: 'white'}} className="step-indicator" variant={`${'soft'}`} color='primary'>
+                                    {activeStep > idx ? <MdCheck/> : idx + 1}
+                                </StepIndicator>
+                            }
+                        >
+                            <StepButton sx={{marginInlineStart: '0.5vw', color: 'white'}} onClick={() => handleNavigationTo(idx)}>{it.heading}</StepButton>
+                        </Step>
+                    ))}
+                </Stepper>
+                <div className='step-content'>
+                    {steps[activeStep].component}
+                </div>
             </div>
         </div>
     )

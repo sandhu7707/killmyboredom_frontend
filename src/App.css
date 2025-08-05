@@ -9,3 +9,11 @@ body{
 fieldset{
   margin: 0;
 }
+
+button.generic-button{
+  background-color: rgba(0,0,0,0.52);
+}
+
+button.generic-button:hover{
+  background-color: rgba(0,0,0,0.32);
+}

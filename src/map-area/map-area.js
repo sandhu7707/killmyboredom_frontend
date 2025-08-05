@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import './map-area.css'
 import Button from '@mui/joy/Button'
 import LocationSearch from './location-search/location-search'
-import { useNavigate } from 'react-router'
+import { createSearchParams, useNavigate } from 'react-router'
 import Typography from '@mui/joy/Typography'
 import IconButton from '@mui/joy/IconButton'
 import { MdPushPin } from "react-icons/md";
@@ -11,6 +11,7 @@ import { useContext } from 'react'
 import { UserContext } from '../utils/user-utils'
 import { api_business_coords } from '../utils/constants'
 import { MdFitnessCenter, MdOutlineSports, MdEvent } from "react-icons/md"
+import { Link } from 'react-router'
 
 const services = {
     'Gym': {icon: <MdFitnessCenter />}, 
@@ -178,9 +179,9 @@ export default function MapArea({ isPinMode, handleLocationCallback, defaultPins
                         <div className='map-overlay-heading' style={{ display: 'flex', width: '100%', color: 'black' }}>
                             {!enterManually && !isMapActive &&
                                 <>
-                                    <Button onClick={detectLocation} sx={{ width: '50%', marginInline: 'auto', marginBlock: '2%' }}>Detect Location</Button>
+                                    <Button className="generic-button" onClick={detectLocation} sx={{ width: '50%', marginInline: 'auto', marginBlock: '2%' }}>Detect Location</Button>
                                     or
-                                    <Button onClick={() => { setEnterManually(true) }} sx={{ width: '50%', marginInline: 'auto', marginBlock: '2%' }}>Enter Manually</Button>
+                                    <Button className="generic-button" onClick={() => { setEnterManually(true) }} sx={{ width: '50%', marginInline: 'auto', marginBlock: '2%' }}>Enter Manually</Button>
                                 </>}
                             {(enterManually || isMapActive) &&
                                 <>
@@ -194,7 +195,7 @@ export default function MapArea({ isPinMode, handleLocationCallback, defaultPins
                                     {!isMapActive &&
                                         <>
                                             or
-                                            <Button onClick={detectLocation} sx={{ width: '50%', marginInline: 'auto', marginBlock: '2%' }}>Detect Location</Button>
+                                            <Button className="generic-button" onClick={detectLocation} sx={{ width: '50%', marginInline: 'auto', marginBlock: '2%' }}>Detect Location</Button>
                                         </>}
                                 </>
                             }
@@ -212,7 +213,7 @@ export default function MapArea({ isPinMode, handleLocationCallback, defaultPins
             }
             {!isPinMode && <div tabIndex={0} className="business-registration">
                 <div tabIndex={0} className="business-registration-content">
-                    <Button onClick={() => user ? navigate('/business-registration') : navigate('/register-user')}>Register</Button><br></br> Your Business <br></br>Now!!
+                    <Link style={{color: 'white'}} onClick={() => user ? navigate('/business-registration') : navigate({ pathname: '/sign-in', search: `?${createSearchParams({redirectTo: '/business-registration'})}`})}>Register<br></br> Your Business Now!!</Link>
                 </div>
                 <div className='buisiness-registration-page-turn' style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/page-turn.svg)` }}>
                 </div>
@@ -237,7 +238,7 @@ export default function MapArea({ isPinMode, handleLocationCallback, defaultPins
                             }
                         </>)}
                     </div>
-                    <Button sx={{width: '100%', marginBlockStart: '3px'}} onClick={() => {navigate(`/business-page/${businessInPopup.id}`)}}>Business Page</Button>
+                    <Button className="generic-button" sx={{width: '100%', marginBlockStart: '3px'}} onClick={() => {navigate(`/business-page/${businessInPopup.id}`)}}>Business Page</Button>
                 </>}
             </div>
 

@@ -29,8 +29,8 @@ export default function CoachingServiceDetails({ formData, setFormData, schema, 
                 />
 
             <div className='stepper-buttons'>
+                <Button className="generic-button" sx={{marginBlockStart: '3vh', color: 'white', marginInlineEnd: 'auto'}} onClick={decrementStep}>Previous</Button>
                 <InternalSubmitButtonComponent label={"Next"} />
-                <Button sx={{ float: 'left', marginBlock: '2vh' }} onClick={decrementStep}>Previous</Button>
             </div>
         </InternalFormComponent>
     </>;

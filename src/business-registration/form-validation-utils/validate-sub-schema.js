@@ -21,6 +21,8 @@ export default function useValidateSubSchema(schema){
 
         let dependenciesSchema = {};
         let dependenciesValues = {}
+        console.log("parentPath: ", parentPath)
+        console.log("schemaKey: ", schemaKey)
         try {
             reach(schema, parentPath ? parentPath+'.'+schemaKey : schemaKey)
             if(dependencies && Object.keys(dependencies).length > 0){

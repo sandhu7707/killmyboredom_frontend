@@ -1,7 +1,7 @@
 import { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
-import { InternalFormComponent, InternalInputFieldComponent, InternalValidationErrorsComponent } from "../business-registration/form-utils/form-components";
+import { InternalFormComponent, InternalInputFieldComponent, InternalSubmitButtonComponent, InternalValidationErrorsComponent } from "../business-registration/form-utils/form-components";
 import { profileDetailsSchema } from "../business-registration/form-validation-utils/form-schemas";
 import Button from "@mui/joy/Button";
 import { api_user } from "../utils/constants";
@@ -41,7 +41,6 @@ export default function RegisterUser(){
     return(
         <div>
             <InternalFormComponent formData={formData} setFormData={setFormData} schema={profileDetailsSchema} onSubmit={handleSave}>
-                <fieldset style={{width: '80%', marginInline: 'auto'}}>
                     <InternalInputFieldComponent name="username" displayName= "Username"/>
                     <InternalInputFieldComponent
                         name="password"
@@ -53,11 +52,11 @@ export default function RegisterUser(){
                     <InternalInputFieldComponent name="confirmPassword" validationDeps={['password']} displayName="Confirm Password"/>
                     <InternalInputFieldComponent name="email" displayName={"E mail"}/>
                     <InternalInputFieldComponent name="phone" type="number" displayName={"Phone"}/>
-                </fieldset>
+                
                 <InternalValidationErrorsComponent
                     name={"global"}
                 />
-                <Button type="submit" style={{marginBlock: "3vh"}}>Submit</Button>
+                <InternalSubmitButtonComponent label={'Submit'} position={"left"}/>
             </InternalFormComponent>
         </div>
     )

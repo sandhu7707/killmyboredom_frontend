@@ -18,14 +18,18 @@ export default function BusinessLocation({formData, setFormData, schema, increme
     }
 
     return (
-        <>
-            <MapArea
-                defaultPins={[formData.location]}
-                isPinMode={true}
-                handleLocationCallback={handleLocation}
-            />
-            {<Button sx={{float: 'left', marginBlock: '2vh'}} onClick={decrementStep}>Previous</Button>}
-            {<Button disabled={isNextDisabled} sx={{ float: 'right', marginBlock: '2vh' }} onClick={incrementStep}>Next</Button>}
-        </>
+        <div className="form-container">
+            <div className="form-content">
+                <MapArea
+                    defaultPins={[formData.location]}
+                    isPinMode={true}
+                    handleLocationCallback={handleLocation}
+                />
+                <div className="stepper-buttons">
+                    <Button className="generic-button" sx={{marginBlockStart: '3vh', color: 'white', marginInlineEnd: 'auto'}} onClick={decrementStep}>Previous</Button>
+                    <Button className="generic-button" disabled={isNextDisabled} sx={{marginBlockStart: '3vh', color: 'white', marginInlineStart: 'auto'}} onClick={incrementStep}>Next</Button>
+                </div>
+            </div>
+        </div>
     )
 }

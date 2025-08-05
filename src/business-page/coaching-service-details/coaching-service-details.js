@@ -24,7 +24,7 @@ function CoachingCard({it}){
                 <FeeCards basicFee={it.basicFee} addOns={it.addOns}/>
             </div>
             <hr></hr>
-            <div><Button onClick={() => {setCollapsed(collapsed => !collapsed)}} sx={{width: '100%'}}>{collapsed ? 'Expand' : 'Collapse'}</Button></div>
+            <div><Button className="generic-button" onClick={() => {setCollapsed(collapsed => !collapsed)}} sx={{width: '100%'}}>{collapsed ? 'Expand' : 'Collapse'}</Button></div>
         </Card>
     )
 }

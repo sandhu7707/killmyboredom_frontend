@@ -7,7 +7,6 @@ export default function BusinessDetails({ formData, setFormData, schema, increme
     return (
         <div>
             <InternalFormComponent formData={formData} setFormData={setFormData} schema={schema} onSubmit={incrementStep}>
-                <fieldset>
                     <InternalInputFieldComponent name='businessName' displayName='Business Name'/>
                     <InternalSelectFieldComponent
                         name='businessType'
@@ -33,6 +32,7 @@ export default function BusinessDetails({ formData, setFormData, schema, increme
                                         label={false}
                                         showErrors={false}
                                         path={['contacts', idx]}
+                                        placeholder={'Contact Type'}
                                         validationDeps={['value']}
                                         options={[
                                             {value: 'mobile', label: 'Mobile'},
@@ -65,8 +65,6 @@ export default function BusinessDetails({ formData, setFormData, schema, increme
                     />
                     </fieldset>
                     
-                </fieldset>
-
                 <div className='stepper-buttons'>
                     <InternalSubmitButtonComponent label={"Next"}/>
                 </div>

@@ -1,0 +1,19 @@
+.form-container{
+  padding-block: 5vh;
+}
+
+.form-content{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 90%;
+    /* color: white; */
+}
+
+
+.form-error{
+  text-align: end;
+  width: 100%;
+  color: #c41c1cee;
+  font-size: 1.5vw;
+}

@@ -7,7 +7,6 @@ export default function EventServiceDetails({ formData, setFormData, schema, inc
     return <>
         <InternalFormComponent formData={formData} setFormData={setFormData} schema={schema} onSubmit={incrementStep}>
 
-            <fieldset>
                 <InternalListFieldComponent
                     name={'events'}
                     displayName={'Events'}
@@ -59,11 +58,10 @@ export default function EventServiceDetails({ formData, setFormData, schema, inc
                             />
                         </fieldset>}
                 />
-            </fieldset>
 
             <div className='stepper-buttons'>
+                <Button className="generic-button" sx={{marginBlockStart: '3vh', color: 'white', marginInlineEnd: 'auto'}} onClick={decrementStep}>Previous</Button>
                 <InternalSubmitButtonComponent label={"Next"} />
-                <Button sx={{ float: 'left', marginBlock: '2vh' }} onClick={decrementStep}>Previous</Button>
             </div>
         </InternalFormComponent>
     </>;

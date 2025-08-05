@@ -85,11 +85,11 @@
     overflow: hidden;
 }
 
-.business-registration:hover .business-registration-content, .business-registration:focus .business-registration-content{
+.business-registration:where(:hover, :focus) .business-registration-content{
     max-height: 50vh;
 }
 
-.business-registration:not(:hover) .business-registration-content, .business-registration:not(:focus) .business-registration-content{
+.business-registration:not(:hover):not(:focus) .business-registration-content{
     max-height: 0;
 }
 
@@ -102,6 +102,11 @@
 }
 
 .business-registration-content{
+    width: 30%;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     position: absolute;
     z-index: 2;
     cursor: pointer;

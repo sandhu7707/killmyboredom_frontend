@@ -1,14 +1,14 @@
 .page-container{
-  width: 70%;
-  margin-inline: auto;
-  margin-top: 2%;
+    padding-top: 2%;
 }
 
-.step-content {
-  margin-top: 2%;
+.page-content{
+  width: 90%;
+  margin-inline: auto;
 }
 
 .step-heading{
+    background-color: rgba(0,0,0,0.42);
     font-size: 2vw;
 }
 
@@ -20,6 +20,8 @@
 
 .stepper-buttons{
     width: 100%;
+    display: flex;
+    align-items: stretch;
 }
 
 @media screen and (max-width: 576px) {

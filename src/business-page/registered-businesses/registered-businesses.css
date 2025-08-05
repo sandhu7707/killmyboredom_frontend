@@ -1,0 +1,14 @@
+.business-item{
+    border: solid 0.5px black;
+    padding: 1em;
+    font-weight: 300;
+}
+
+.business-item:hover{
+    background-color: rgba(0,0,0,0.52);
+    cursor: pointer;
+}
+
+.business-item:hover .business-item-content{
+    color: white;
+}

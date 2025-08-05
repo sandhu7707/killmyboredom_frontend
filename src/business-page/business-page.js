@@ -23,12 +23,12 @@ export default function BusinessPage({businessData}){
 
     return(
         <>
-            {user.username === businessData.admin_user_id && <IconButton style={{display: 'block', marginInlineStart: 'auto'}} onClick={() => navigate(`/edit-business-details/${businessData._id}`)}><MdEdit /></IconButton>}
+            {user && user.username === businessData.admin_user_id && <IconButton style={{display: 'block', marginInlineStart: 'auto'}} onClick={() => navigate(`/edit-business-details/${businessData._id}`)}><MdEdit /></IconButton>}
             <div className="business-page-header">
                 <div>
                     <Typography className="business-title" id="business-page-title">{businessData.businessName}</Typography>
                 </div>
-                <Typography className='address-block' id="business-page-address-block"><Typography><Link variant="soft" href={businessData.website}>{businessData.website}</Link></Typography><Typography>{businessData.address}</Typography><Typography>{businessData.city}</Typography> <Typography>{businessData.state}</Typography></Typography>
+                <Typography className='address-block' id="business-page-address-block"><Typography>{businessData.website && <Link variant="soft" href={businessData.website}>{businessData.website}</Link>}</Typography><Typography>{businessData.address}</Typography><Typography>{businessData.city}</Typography> <Typography>{businessData.state}</Typography></Typography>
             </div>
 
             <div className="business-page-services">

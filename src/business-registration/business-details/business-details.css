@@ -25,15 +25,9 @@
   flex-basis: 30%;
   text-align: left;
   font-weight: 300;
+  padding: 2%;
   font-size: 2vw;
   flex-shrink: 0;
-}
-
-.form-error{
-  text-align: end;
-  width: 100%;
-  color: #C41C1C;
-  font-size: 1.5vw;
 }
 
 fieldset{

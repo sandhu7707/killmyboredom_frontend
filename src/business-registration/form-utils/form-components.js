@@ -16,6 +16,7 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import Textarea from '@mui/joy/Textarea';
 import Box from "@mui/material/Box";
 import dayjs from "dayjs";
+import "./form-components.css"
 
 const FormContext = createContext({})
 
@@ -32,10 +33,12 @@ export function InternalFormComponent({ formData, setFormData, schema, children,
     }
 
     return (
-        <form onSubmit={handleSubmit} {...props}>
-            <FormContext value={{ formData, setFormData, schema, errors, validatingFields, validateSubSchema }}>
-                {children}
-            </FormContext>
+        <form className="form-container" onSubmit={handleSubmit} {...props}>
+            <div className="form-content">
+                <FormContext value={{ formData, setFormData, schema, errors, validatingFields, validateSubSchema }}>
+                    {children}
+                </FormContext>
+            </div>
         </form>
     )
 }
@@ -121,9 +124,11 @@ export function InternalInputFieldComponent({ name, value, displayName, validati
     let input = textarea ? 
                 <Textarea
                     error={errors[pathSchemaString] && errors[pathSchemaString].length > 0}
+                    sx={{backgroundColor: 'rgb(0,0,0,0)', color: 'black', borderTop: '0', borderInline: '0', borderRadius: '0', marginBlockStart: '2vh'}}
                     value={getValueAtPath(formData, completePath)}
                     name={name}
                     id={name}
+                    placeholder={displayName}
                     className="form-input"
                     onChange={handleInputChange}
                     minRows={1}
@@ -132,8 +137,10 @@ export function InternalInputFieldComponent({ name, value, displayName, validati
                 />
                 :<Input
                     error={errors[pathSchemaString] && errors[pathSchemaString].length > 0}
+                    sx={{backgroundColor: 'rgb(0,0,0,0)', color: 'black', borderTop: '0', borderInline: '0', borderRadius: '0', marginBlockStart: '2vh'}}
                     value={getValueAtPath(formData, completePath)}
                     name={name}
+                    placeholder={displayName}
                     id={name}
                     className="form-input"
                     onChange={handleInputChange}
@@ -142,12 +149,13 @@ export function InternalInputFieldComponent({ name, value, displayName, validati
 
     return (
         <>
-            {label ? 
+            {/* {label ? 
             <div className="input-container">
                 <Typography className="form-label">{displayName}</Typography>
                 {input}
             </div>
-            : input}
+            : input} */}
+            {input}
             {showErrors && <InternalValidationErrorsComponent
                 path={path}
                 name={name}
@@ -170,6 +178,8 @@ export function InternalSelectFieldComponent({ name, displayName, options, valid
     }
 
     let select = <Select name={name} id={name} className="form-input"
+                    placeholder={displayName}
+                    sx={{backgroundColor: 'rgb(0,0,0,0)', color: 'black', borderTop: '0', borderInline: '0', borderRadius: '0', marginBlockStart: '2vh'}}
                     value={getValueAtPath(formData, [...path, name])}
                     color={errors[pathStringSchema] && errors[pathStringSchema].length > 0 ? 'danger' : 'neutral' }
                     renderValue={(selected) => {
@@ -188,11 +198,12 @@ export function InternalSelectFieldComponent({ name, displayName, options, valid
 
     return (
         <>
-            {label ? <div className="input-container">
+            {/* {label ? <div className="input-container">
                 <Typography className="form-label">{displayName}</Typography>
                 {select}
             </div>
-            : select}
+            : select} */}
+            {select}
             {showErrors && <InternalValidationErrorsComponent
                 path={path}
                 name={name}
@@ -208,7 +219,7 @@ export function InternalListFieldComponent({ label=true, name, displayName, item
     let completePath = [...path, name]
     let items = getValueAtPath(formData, completePath)
 
-    const buttons = <>
+    const buttons = <div style={{display: 'flex', justifyContent: 'center'}}>
         <IconButton
                     sx={{width: '5vh', height: '5vh', marginBlock: 'auto'}}
                     disabled={disableAdd}
@@ -241,7 +252,7 @@ export function InternalListFieldComponent({ label=true, name, displayName, item
                     }>
                     <MdRemove />
                 </IconButton>
-    </>
+    </div>
 
     return (
         <>
@@ -293,12 +304,12 @@ export function InternalTimeRangeComponent({path, name, displayName, label=true}
         handleTimeSlotChange(dayjs(currEnd), 'end')
     }
 
-    let timeRange = <div className="form-input" style={{ justifyContent: 'space-around', display: 'flex' }}>
+    let timeRange = <div className="form-input" style={{ justifyContent: 'space-around', display: 'flex', color: 'black' }}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <TimePicker
                             key={`start`}
                             id={`${name}-start`}
-                            sx={{ marginBlock: '1vh' }}
+                            sx={{ marginBlock: '1vh', color: 'black'}}
                             label="Start Time"
                             value={currStart instanceof dayjs ? currStart : dayjs(currStart)}
                             onChange={(e) => { handleTimeSlotChange(e, 'start') }}
@@ -306,7 +317,7 @@ export function InternalTimeRangeComponent({path, name, displayName, label=true}
                         <TimePicker
                             key={`end`}
                             id={`${name}-end`}
-                            sx={{ marginBlock: '1vh' }}
+                            sx={{ marginBlock: '1vh', color: 'black'}}
                             label="End Time"
                             value={currEnd instanceof dayjs ? currEnd : dayjs(currEnd)}
                             onChange={(e) => { handleTimeSlotChange(e, 'end') }}
@@ -316,7 +327,7 @@ export function InternalTimeRangeComponent({path, name, displayName, label=true}
     return (
         <div className="">     
                 {label ? <div className="input-container">
-                    <Typography className="form-label">{displayName}</Typography>
+                    <Typography className="form-label" style={{color: 'black'}}>{displayName}</Typography>
                     {timeRange}
                 </div>
                 : timeRange
@@ -342,13 +353,17 @@ export function InternalValidationErrorsComponent({path=[], name}) {
     )
 }
 
-export function InternalSubmitButtonComponent({label}){
+export function InternalSubmitButtonComponent({label, position='right'}){
 
     const {errors} = useContext(FormContext)
+
+    console.log(position)
     return (
         <Button
-            disabled={Object.keys(errors).length !== 0}
-            sx={{ float: 'right', marginBlock: '2vh' }}
+            className="generic-button"
+            style={position === 'right' ? {marginInlineStart: 'auto'} : {marginInlineEnd: 'auto'}}
+            sx={{marginBlockStart: '3vh', color: 'white', float: position}}
+            disabled={Object.keys(errors).length !== 0} 
             type="submit"
         >{label}</Button>
     )

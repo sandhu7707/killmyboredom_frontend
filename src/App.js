@@ -9,6 +9,8 @@ import { useState } from 'react';
 import BusinessPageById from './business-page/business-page-by-id';
 import RegisteredBusinesses from './business-page/registered-businesses/registered-businesses';
 import EditBusinessDetails from './edit-business-details/edit-business-details';
+import SignInUser from './signin-user/signin-user';
+import { CssVarsProvider, extendTheme } from '@mui/joy';
 
 function App() {
   console.log('App:rendered')
@@ -37,14 +39,17 @@ function App() {
       },{
         path: '/registered-businesses',
         Component: RegisteredBusinesses
+      },{
+        path: 'sign-in',
+        Component: SignInUser
       }]
     }
   ])
   return (
     <div id="app" className="App">
-      <UserContext value={{user, setUser}}>
-        <RouterProvider router={router}></RouterProvider>
-      </UserContext>
+        <UserContext value={{user, setUser}}>
+          <RouterProvider router={router}></RouterProvider>
+        </UserContext>
     </div>
   );
 }

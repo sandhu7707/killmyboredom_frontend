@@ -18,6 +18,7 @@ export default function Home() {
   const videoRef = useRef(null)
   const appNameRef = useRef(null)
   const cardsRef = useRef(null)
+  const cardsContainerRef = useRef(null)
   const appNameContainerRef = useRef(null)
   const easyScrollButtonRef = useRef(null)
   const greetScreenRef = useRef(null)
@@ -36,6 +37,7 @@ export default function Home() {
     innerHeightRef.current = window.innerHeight
     let animationLoopId;
 
+    let scrollValue;
     const handleAnimations = () => {
 
       // needed to give proper size in mobile user agents
@@ -44,8 +46,6 @@ export default function Home() {
       }
 
       let scrollVal = scrollingElement.scrollTop
-      handleScrollDrivenAnimations(scrollVal, appNameContainerRef.current, cardsRef.current, easyScrollButtonRef.current, innerHeightRef.current)
-      
       if(scrollVal > innerHeightRef.current/4){
           projectVideoToAppName(videoRef.current, appNameRef.current)
       }
@@ -54,6 +54,15 @@ export default function Home() {
         appNameRef.current.style.backgroundImage = 'none'
         videoRef.current.style.visibility = 'visible'
       }
+
+      if(scrollValue === scrollVal){
+        animationLoopId = requestAnimationFrame(handleAnimations)
+        return
+      }
+      else{
+        scrollValue = scrollVal
+      }
+      handleScrollDrivenAnimations(scrollVal, appNameContainerRef.current, cardsRef.current, easyScrollButtonRef.current, innerHeightRef.current, cardsContainerRef.current)
 
       animationLoopId = requestAnimationFrame(handleAnimations)
     }
@@ -71,9 +80,7 @@ export default function Home() {
     <div className="home-container">
       <div className="translating-content">
         <div ref={greetScreenRef} id="greet-screen" className="greet-screen">
-          <div className="sign-in-container">
-            {!user && <SignInUser></SignInUser>}
-          </div>
+
           <div ref={appNameContainerRef} className='app-name-container'>
             <div ref={appNameRef} id="appName" className='app-name'>
               Kill Your <br></br> Boredom
@@ -83,7 +90,7 @@ export default function Home() {
             <source src="demo_video.mp4"></source>
           </video>
         </div>
-        <div id="horizontal-cards" className="horizontal-cards">
+        <div ref={cardsContainerRef} id="horizontal-cards" className="horizontal-cards">
           <div ref={cardsRef} id="horizontal-cards-content">
             <InfoCards cardsInfo={cardsInfo.cardsInfo} cardsWidth={cardsInfo.cardsWidthVW} cardsIntroWidth={cardsInfo.cardsWidthVW*1.5}></InfoCards>
           </div>
@@ -108,7 +115,7 @@ export default function Home() {
   )
 }
 
-function handleScrollDrivenAnimations(scrollValue, appName, cards, easyScrollButton, innerHeight) {
+function handleScrollDrivenAnimations(scrollValue, appName, cards, easyScrollButton, innerHeight, cardsContainer) {
 
   if (scrollValue < innerHeight / 2) {
     appName.style.color = 'white'
@@ -137,27 +144,30 @@ function handleScrollDrivenAnimations(scrollValue, appName, cards, easyScrollBut
     let newScrollValue = scrollValue - innerHeight/2
     newScrollValue = (parseFloat(newScrollValue) / parseFloat(0.5*innerHeight)) * (cards.getBoundingClientRect().width-window.innerWidth/2)
     newScrollValue = newScrollValue > cards.getBoundingClientRect().width - window.innerWidth ? cards.getBoundingClientRect().width - window.innerWidth : newScrollValue
-
-    cards.style.transform = `translateX(-${newScrollValue}px)`
+    // let elem = new HTMLElement()
+    // elem.scrollLeft
+    cardsContainer.scrollLeft = newScrollValue
+    // cards.style.transform = `translateX(-${newScrollValue}px)`
 
     easyScrollButton.style.visibility = 'visible'
 
-    let scroll = newScrollValue * 100 / window.innerWidth
+    // let scroll = newScrollValue * 100 / window.innerWidth
 
-    for (let i = 0; i < cardsInfo.cardsInfo.length; i++) {
-      let card = document.getElementById(cardsInfo.cardsInfo[i].headingId)
-      if (scroll > cardsInfo.cardsWidthVW * i + cardsInfo.cardsWidthVW / 2) {
-        card.style.opacity = 1
-      }
-      else {
-        card.style.opacity = 0
-      }
-    }
+    // for (let i = 0; i < cardsInfo.cardsInfo.length; i++) {
+    //   let card = document.getElementById(cardsInfo.cardsInfo[i].headingId)
+    //   if (scroll > cardsInfo.cardsWidthVW * i + cardsInfo.cardsWidthVW / 2) {
+    //     card.style.opacity = 1
+    //   }
+    //   else {
+    //     card.style.opacity = 0
+    //   }
+    // }
   }
 
 
   if (scrollValue > innerHeight) {
-    cards.style.transform = `translateX(-${cards.getBoundingClientRect().width - window.innerWidth}px)`
+    cardsContainer.scrollLeft = cards.getBoundingClientRect().width - window.innerWidth
+    // cards.style.transform = `translateX(-${cards.getBoundingClientRect().width - window.innerWidth}px)`
     easyScrollButton.style.visibility = 'visible'
   }
 

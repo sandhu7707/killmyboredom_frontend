@@ -1,12 +1,13 @@
-import { InternalFormComponent, InternalInputFieldComponent } from "../business-registration/form-utils/form-components"
+import { InternalFormComponent, InternalInputFieldComponent, InternalSubmitButtonComponent } from "../business-registration/form-utils/form-components"
 import { useContext, useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
 import Button from "@mui/joy/Button";
 import { api_sign_in } from "../utils/constants";
 import { setUserDetails, UserContext } from "../utils/user-utils";
-import { useNavigate } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 import { signInSchema } from "../business-registration/form-validation-utils/form-schemas";
+import "./signin-user.css"
 
 export default function SignInUser(){
 
@@ -16,6 +17,8 @@ export default function SignInUser(){
         password: ''
     })
 
+    const redirectTo = useSearchParams()[0].get("redirectTo")
+    console.log(redirectTo)
     const {setUser} = useContext(UserContext)
     const navigate = useNavigate()
 
@@ -42,35 +45,40 @@ export default function SignInUser(){
         .then(json => {
             setUser(json.user)
             setUserDetails(json)
-            navigate('/')
+            if(redirectTo){
+                navigate(redirectTo)
+            }
+            else{
+                navigate('/')
+            }
         })
         .catch(err => console.error(err))
     }
 
-    return <>
+    return <div>
         <InternalFormComponent
-         style={{width: '50%', marginInline:'auto', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center'}}
+         style={{width: '100%', marginInline:'auto', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center'}}
          schema={signInSchema}
          formData={formData} 
          setFormData={setFormData} 
          onSubmit={handleSubmit}>
             <InternalInputFieldComponent
-                sx={{backgroundColor: 'rgb(0,0,0,0)', color: 'white', borderTop: '0', borderInline: '0', borderRadius: '0'}}
+                sx={{backgroundColor: 'rgb(0,0,0,0)', color: 'black', borderTop: '0', borderInline: '0', borderRadius: '0', marginBlockStart: '2vh'}}
                 name='username'
                 placeholder={'Username'}
                 label={false}
             />
             <InternalInputFieldComponent
-                sx={{backgroundColor: 'rgb(0,0,0,0)', color: 'white', borderTop: '0', borderInline: '0', borderRadius: '0', marginBlockStart: '2vh'}}
+                sx={{backgroundColor: 'rgb(0,0,0,0)', color: 'black', borderTop: '0', borderInline: '0', borderRadius: '0', marginBlockStart: '2vh'}}
                 name='password'
                 placeholder={'Password'}
                 label={false}
-                endDecorator={<IconButton onClick={() => setShowPassword(showPassword => !showPassword)}>{showPassword ? <MdOutlineVisibilityOff color="white" /> : <MdOutlineVisibility color="white"/>}</IconButton>}
+                endDecorator={<IconButton onClick={() => setShowPassword(showPassword => !showPassword)}>{showPassword ? <MdOutlineVisibilityOff color="black" /> : <MdOutlineVisibility color="black"/>}</IconButton>}
                 type={showPassword ? 'text' : 'password'}
             />
-            <Button variant="outline" sx={{marginBlockStart: '3vh', marginInlineEnd: 'auto', color: 'white'}} type="submit">Sign In</Button>
-            <p style={{color: 'white', marginLeft: 'auto'}}><a style={{color: 'white'}} href="/register-user">Create a new Account</a></p>
+            <InternalSubmitButtonComponent label={'Sign In'} position="left"/>
+            <p style={{color: 'black', marginLeft: 'auto'}}><a style={{color: 'black'}} href="/register-user">Create a new Account</a></p>
             
         </InternalFormComponent>
-    </>
+    </div>
 }

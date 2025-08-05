@@ -20,7 +20,8 @@ html, body{
 
 .horizontal-cards{
   position: relative;
-  overflow: hidden;
+  overflow: scroll;
+  overflow-y: hidden;
   height: 50vh;
 }
 
@@ -72,16 +73,6 @@ html, body{
 .app-name-container{
   /* transition: font-size 0.5s ease */
 }
-
-.sign-in-container {
-  position: absolute;
-  top: 0;
-  height: 50vh;
-  background-color: rgba(0, 0, 0, 0.521);
-  width: 100%;
-  z-index: 1;
-}
-
 
 
 @media screen and (orientation:portrait){
