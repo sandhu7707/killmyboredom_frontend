@@ -17,11 +17,11 @@ export default function NavBar(props){
     }
 
     let account = <div tabIndex={0} className="account-button">
-        <MdAccountCircle />
+        <MdAccountCircle style={{display: 'block', marginInlineStart: 'auto'}} />
         <div className="collapsible-account-options">
             <Typography onClick={() => {navigate('/registered-businesses'); window.location.reload()}} className="account-option">Registered Businesses</Typography>
-            {/* <Typography className="account-option">Saved Businesses</Typography>
-            <Typography className="account-option">Account Options</Typography> */}
+            {/* <Typography onClick={() => navigate('/favorited-businesses')} className="account-option">Favorited Spots</Typography> */}
+            {/* <Typography className="account-option">Account Options</Typography> */}
             <Typography className="account-option" onClick={signOut}>Sign Out</Typography>
         </div>
     </div>
@@ -34,7 +34,7 @@ export default function NavBar(props){
                 {user && account}
             </div>
             }
-            {user && account}
+            {location.pathname === '/' && user && account}
             <Outlet></Outlet>
         </>
     )

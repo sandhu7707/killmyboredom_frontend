@@ -3,8 +3,10 @@ import { createContext } from "react";
 export const UserContext = createContext({})
 
 export function setUserDetails(json){
-    if(json){
+    if(json.user){
         window.localStorage.setItem('user', JSON.stringify(json.user))
+    }
+    if(json.token){
         window.localStorage.setItem('jwt-token', json.token)
     }
 }

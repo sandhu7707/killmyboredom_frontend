@@ -7,10 +7,10 @@ import RegisterUser from './register-user/register-user';
 import { getUserDetails, UserContext } from './utils/user-utils';
 import { useState } from 'react';
 import BusinessPageById from './business-page/business-page-by-id';
-import RegisteredBusinesses from './business-page/registered-businesses/registered-businesses';
+import RegisteredBusinesses from './registered-businesses/registered-businesses';
 import EditBusinessDetails from './edit-business-details/edit-business-details';
 import SignInUser from './signin-user/signin-user';
-import { CssVarsProvider, extendTheme } from '@mui/joy';
+import FavoritedBusinesses from './favorited-businesses/favorited-businesses';
 
 function App() {
   console.log('App:rendered')
@@ -42,6 +42,9 @@ function App() {
       },{
         path: 'sign-in',
         Component: SignInUser
+      },{
+        path: '/favorited-businesses',
+        Component: FavoritedBusinesses
       }]
     }
   ])

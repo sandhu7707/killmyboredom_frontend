@@ -160,6 +160,20 @@ button.pin-button{
     background-color: #ffffff;
     z-index: 1;
     padding: 1em;
-    color: orange;
+    color: rgba(0, 0, 0, 0.72);
+    border-radius: 5vw;
+    background-color: #f2efe9;
+    border: solid 1px #a7a7a7fa;
+    box-shadow: black 0.5px 0.5px;
     visibility: hidden;
+}
+
+.popup-button{
+    width: 100%;
+    padding: 2vw;
+    border-radius: 0.5rem;
+    border: 0;
+    font-weight: 700;
+    /* font-family: unset; */
+    margin-block: 1vw;
 }

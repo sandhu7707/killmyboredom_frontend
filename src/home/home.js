@@ -1,16 +1,14 @@
-import { useContext, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import MapArea from "../map-area/map-area";
 import InfoCards from "./info-cards/info-cards";
 import IconButton from '@mui/joy/IconButton'
 import { AiFillCaretUp } from "react-icons/ai";
 import './home.css'
-import SignInUser from "../signin-user/signin-user";
-import { UserContext } from "../utils/user-utils";
 
 const cardsInfo = {cardsInfo: [
-  { headingId: 'card-0', imgSrc: '/gyms.png', heading: 'Explore Gyms' },
-  { headingId: 'card-1', imgSrc: '/coaching.png', heading: 'Find Personal Training' },
-  { headingId: 'card-2', imgSrc: '/events.png', heading: 'Discover Events' },
+  { headingId: 'card-0', imgSrc: '/gyms.png', heading: 'Explore Gyms', description: 'Find Gyms near you!' },
+  { headingId: 'card-1', imgSrc: '/coaching.png', heading: 'Find Personal Training', description: 'Find a trainer near you and meet your personal goals!' },
+  { headingId: 'card-2', imgSrc: '/events.png', heading: 'Discover Events', description: 'Discover Events happening near you!' },
 ], cardsWidthVW: 50}
 
 export default function Home() {
@@ -73,8 +71,6 @@ export default function Home() {
       cancelAnimationFrame(animationLoopId)
     }
   }, [])
-
-  const {user} = useContext(UserContext)
 
   return (
     <div className="home-container">

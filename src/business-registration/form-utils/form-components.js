@@ -219,7 +219,7 @@ export function InternalListFieldComponent({ label=true, name, displayName, item
     let completePath = [...path, name]
     let items = getValueAtPath(formData, completePath)
 
-    const buttons = <div style={{display: 'flex', justifyContent: 'center'}}>
+    const buttons = <div style={{display: 'flex', justifyContent: 'center', flexBasis: inlineListButtons ? '30%' : '100%', flexShrink: 1}}>
         <IconButton
                     sx={{width: '5vh', height: '5vh', marginBlock: 'auto'}}
                     disabled={disableAdd}
@@ -259,8 +259,8 @@ export function InternalListFieldComponent({ label=true, name, displayName, item
             {label && <div className="input-container">
                 <Typography className="form-label"><Box sx={{fontWeight: 800, width: '100%'}}>{displayName}</Box></Typography>
             </div>}
-            <div className="input-container" >
-                {items && items.length > 0 && <div style={{ display: 'flex', flexDirection: 'column', width: '100%', marginBlock: '2vh' }}>
+            <div className="input-container" style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', width: '100%'}}>
+                {items && items.length > 0 && <div style={{ display: 'flex', flexDirection: 'column', flexShrink: 1, flexBasis: inlineListButtons ? '70%' : '100%', marginBlock: '2vh' }}> {/** TODO: flex-basis here not working!, doing flex-wrap for now - needed for mobile */}
                     {items.map((it, idx) => itemComponent({it, idx, formData, setFormData, errors, validatingFields, validateSubSchema}))}
                 </div>}
                 {inlineListButtons && buttons}                
@@ -304,7 +304,7 @@ export function InternalTimeRangeComponent({path, name, displayName, label=true}
         handleTimeSlotChange(dayjs(currEnd), 'end')
     }
 
-    let timeRange = <div className="form-input" style={{ justifyContent: 'space-around', display: 'flex', color: 'black' }}>
+    let timeRange = <div className="form-input" style={{ justifyContent: 'space-around', display: 'flex', flexWrap: 'wrap', color: 'black' }}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <TimePicker
                             key={`start`}

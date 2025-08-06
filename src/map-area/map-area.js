@@ -10,13 +10,12 @@ import { MdPushPin } from "react-icons/md";
 import { useContext } from 'react'
 import { UserContext } from '../utils/user-utils'
 import { api_business_coords } from '../utils/constants'
-import { MdFitnessCenter, MdOutlineSports, MdEvent } from "react-icons/md"
 import { Link } from 'react-router'
 
 const services = {
-    'Gym': {icon: <MdFitnessCenter />}, 
-    'Personal Training': {icon: <MdOutlineSports />}, 
-    'Events': {icon: <MdEvent />}
+    'Gym': {icon: 'fitness_center'}, 
+    'Personal Training': {icon: 'sports'}, 
+    'Events': {icon: 'event'}
 }
 
 export default function MapArea({ isPinMode, handleLocationCallback, defaultPins }) {
@@ -33,23 +32,42 @@ export default function MapArea({ isPinMode, handleLocationCallback, defaultPins
 
     const [businessCoords, setBusinessCoords] = useState([]);
     
-    const popupRef = useRef(null)
-    const [businessInPopup, setBusinessInPopup] = useState(null)
 
     const addMarkerPin = useCallback((coords, draggable=true, businessData) => {
         let markerPin = L.marker([coords.lat, coords.lng], {draggable: draggable});
 
+
         markerPin.addTo(map.current)
+
+
+        markerPin.bindPopup(
+            `
+            <div>
+            
+                ${businessData.businessName ? `<h2 style='text-align:center,font-weight:900'>${businessData.businessName}</h2>` : ''}
+                
+                <p>${businessData.address ? `<p>${businessData.address}</p>` : ''}${businessData.city ? `<p>${businessData.city}</p>` : ''}${businessData.state ? `<p>${businessData.state}</p>` : ''}</p>
+                </div>
+
+                <div>
+                    ${Object.keys(services).map(it =>
+                        
+                            businessData.businessType.includes(it) ?
+                            `
+                                <h5 style='color:rgba(0,0,0,0.52)' ><span class="material-icons">${services[it].icon}</span>${it}</h5>
+                            ` : ''
+                        
+                    ).reduce((prev, curr) => prev + ' ' + curr, '')}
+                </div>
+            <button class="generic-button popup-button" style='width:100%' onclick="window.location.href = '/business-page/${businessData.id}'">Business Page</button>
+            `
+        )
+
         markerPin.addEventListener('click', (e) => {
-            if(businessData){
-                setBusinessInPopup(businessData)
-            }
-            popupRef.current.style.left = `${e.containerPoint.x}px`
-            popupRef.current.style.top = `${e.containerPoint.y}px`
-            popupRef.current.style.visibility = 'visible'
+            markerPin.openPopup()
         })
         map.current.addEventListener('mousedown', (e) => {
-            popupRef.current.style.visibility = 'hidden'
+            markerPin.closePopup()
         })
 
         if(handleLocationCallback){
@@ -218,29 +236,6 @@ export default function MapArea({ isPinMode, handleLocationCallback, defaultPins
                 <div className='buisiness-registration-page-turn' style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/page-turn.svg)` }}>
                 </div>
             </div>}
-
-            <div ref={popupRef} className='business-popup'>
-                {businessInPopup && <>
-                    <div>
-                        <div>
-                            <Typography level='h3'>{businessInPopup.businessName}</Typography>
-                        </div>
-                        <Typography ><Typography>{businessInPopup.address}</Typography><Typography>{businessInPopup.city}</Typography><Typography>{businessInPopup.state}</Typography></Typography>
-                    </div>
-
-                    <div>
-                        {Object.keys(services).map(it => <>
-                            {
-                                businessInPopup.businessType.includes(it) &&
-                                <div style={{textAlign: 'start'}}>
-                                    <Typography level="h5" sx={{ display: 'inline'}}>{it}{services[it].icon}</Typography>
-                                </div>
-                            }
-                        </>)}
-                    </div>
-                    <Button className="generic-button" sx={{width: '100%', marginBlockStart: '3px'}} onClick={() => {navigate(`/business-page/${businessInPopup.id}`)}}>Business Page</Button>
-                </>}
-            </div>
 
             <div id="map" className="interact-screen">
 

@@ -1,7 +1,7 @@
 import Skeleton from "@mui/joy/Skeleton"
 import { useEffect, useState } from "react"
-import { api_registered_businesses } from "../../utils/constants"
-import { addToken } from "../../utils/user-utils"
+import { api_registered_businesses } from "../utils/constants"
+import { addToken } from "../utils/user-utils"
 import { useNavigate } from 'react-router'
 import Typography from '@mui/joy/Typography'
 import { MdAddCircleOutline } from "react-icons/md";
@@ -20,7 +20,12 @@ export default function RegisteredBusinesses(){
                 },
                 body: JSON.stringify(addToken({}))
             })
-        .then(data => data.json())
+        .then(data => {
+            if(data.status === 200) 
+                return data.json()
+            else if(data.status === 404)
+                return []
+        })
         .then(json => setBusinesses(json))
     }, [])
 

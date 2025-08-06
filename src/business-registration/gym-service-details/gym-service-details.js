@@ -11,7 +11,7 @@ export function TimeSlotsAndFee({formData, setFormData, parentPath=[]}){
     const unselectedWeekdays = weekDays.filter(it => !selectedWeekdays.includes(it))
     return (
             <>
-                <fieldset className="form-container">
+                <fieldset>
                     <InternalListFieldComponent
                         name="timeSlots"
                         displayName={'Opening Times'}
@@ -23,7 +23,7 @@ export function TimeSlotsAndFee({formData, setFormData, parentPath=[]}){
                                 <InternalSelectFieldComponent
                                     name={"weekdays"}
                                     label={false}
-                                    className="form-label"
+                                    className="form-label"  
                                     displayName={"Weekdays"}
                                     multiple={true}
                                     path={[...parentPath, 'timeSlots', idx]}

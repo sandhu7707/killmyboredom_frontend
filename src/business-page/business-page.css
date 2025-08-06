@@ -25,3 +25,15 @@
     margin-block: 3vh;
     text-align: start;
 }
+
+.business-page-footer{
+    background-color: rgba(131, 143, 153, 0.349);
+}
+
+.review-container{
+    border: solid 0.5px black;
+    border-style: dotted;
+    margin-block: 1vh;
+    padding: 2vh;
+    text-align: start;
+}
