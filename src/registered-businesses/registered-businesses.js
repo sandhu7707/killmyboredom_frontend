@@ -7,7 +7,7 @@ import Typography from '@mui/joy/Typography'
 import { MdAddCircleOutline } from "react-icons/md";
 import "./registered-businesses.css"
 
-export default function RegisteredBusinesses(){
+export default function RegisteredBusinesses() {
 
     const [businesses, setBusinesses] = useState(null)
 
@@ -20,29 +20,31 @@ export default function RegisteredBusinesses(){
                 },
                 body: JSON.stringify(addToken({}))
             })
-        .then(data => {
-            if(data.status === 200) 
-                return data.json()
-            else if(data.status === 404)
-                return []
-        })
-        .then(json => setBusinesses(json))
+            .then(data => {
+                if (data.status === 200)
+                    return data.json()
+                else if (data.status === 404)
+                    return []
+            })
+            .then(json => setBusinesses(json))
     }, [])
 
     const navigate = useNavigate()
 
-    return(businesses ? 
-        <div style={{marginBlockStart: '2vh', border: 'solid 0.5px black', boxSizing: 'border-box'}}>
-            { businesses && businesses.length > 0 ? businesses.map(it => <div className="business-item" style={{width: '100%', textAlign: 'start'}}>
-                <Typography onClick={() => navigate(`/business-page/${it._id}`)} level={'h3'} className="business-item-content">{it.businessName}</Typography>
-            </div>)
-            : <Typography>You haven't registered any Businesses.</Typography>    
-            }
-            <div className='business-item add-business-option' style={{width: '100%', textAlign: 'start', color: ''}}>
-                <Typography onClick={() => navigate(`/business-registration`)} level={'h2'} >Register a Business <MdAddCircleOutline/></Typography>
+    return (<div style={{ display: 'block', marginInline: 'auto', paddingBlock: '3vh', width: '90%' }}>{
+        businesses ?
+            <div style={{ marginBlockStart: '2vh', borderTop: 'solid 0.5px black', boxSizing: 'border-box' }}>
+                {businesses && businesses.length > 0 ? businesses.map(it => <div className="business-item" style={{ textAlign: 'start' }}>
+                    <Typography onClick={() => navigate(`/business-page/${it._id}`)} level={'h3'} className="business-item-content">{it.businessName}</Typography>
+                </div>)
+                    : <Typography sx={{paddingBlock: '3vh', borderBottom: 'solid 0.5px black'}}>You haven't registered any Businesses.</Typography>
+                }
+                <div className='business-item add-business-option' style={{ textAlign: 'start', color: '' }}>
+                    <Typography onClick={() => navigate(`/business-registration`)} level={'h2'} >Register a Business <MdAddCircleOutline /></Typography>
+                </div>
             </div>
-        </div>
-        : <Skeleton/>
+            : <Skeleton />
+    }</div>
     )
 
 }

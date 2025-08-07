@@ -39,36 +39,37 @@ export default function MapArea({ isPinMode, handleLocationCallback, defaultPins
 
         markerPin.addTo(map.current)
 
-
-        markerPin.bindPopup(
-            `
-            <div>
-            
-                ${businessData.businessName ? `<h2 style='text-align:center,font-weight:900'>${businessData.businessName}</h2>` : ''}
-                
-                <p>${businessData.address ? `<p>${businessData.address}</p>` : ''}${businessData.city ? `<p>${businessData.city}</p>` : ''}${businessData.state ? `<p>${businessData.state}</p>` : ''}</p>
-                </div>
-
+        if(businessData){
+            markerPin.bindPopup(
+                `
                 <div>
-                    ${Object.keys(services).map(it =>
-                        
-                            businessData.businessType.includes(it) ?
-                            `
-                                <h5 style='color:rgba(0,0,0,0.52)' ><span class="material-icons">${services[it].icon}</span>${it}</h5>
-                            ` : ''
-                        
-                    ).reduce((prev, curr) => prev + ' ' + curr, '')}
-                </div>
-            <button class="generic-button popup-button" style='width:100%' onclick="window.location.href = '/business-page/${businessData.id}'">Business Page</button>
-            `
-        )
+                
+                    ${businessData.businessName ? `<h2 style='text-align:center;font-weight:900'>${businessData.businessName}</h2>` : ''}
+                    
+                    <p>${businessData.address ? `<p>${businessData.address}</p>` : ''}${businessData.city ? `<p>${businessData.city}</p>` : ''}${businessData.state ? `<p>${businessData.state}</p>` : ''}</p>
+                    </div>
 
-        markerPin.addEventListener('click', (e) => {
-            markerPin.openPopup()
-        })
-        map.current.addEventListener('mousedown', (e) => {
-            markerPin.closePopup()
-        })
+                    <div>
+                        ${Object.keys(services).map(it =>
+                            
+                                businessData.businessType.includes(it) ?
+                                `
+                                    <h5 style='color:rgba(0,0,0,0.52)' ><span class="material-icons">${services[it].icon}</span>${it}</h5>
+                                ` : ''
+                            
+                        ).reduce((prev, curr) => prev + ' ' + curr, '')}
+                    </div>
+                <button class="generic-button popup-button" style='width:100%;cursor:pointer' onclick="window.location.href = '/business-page/${businessData.id}'">Business Page</button>
+                `
+            )
+
+            markerPin.addEventListener('click', (e) => {
+                markerPin.openPopup()
+            })
+            map.current.addEventListener('mousedown', (e) => {
+                markerPin.closePopup()
+            })
+        }
 
         if(handleLocationCallback){
             markerPin.addEventListener('dragend', (e) => {handleLocationCallback({...e.target._latlng})})
@@ -233,7 +234,7 @@ export default function MapArea({ isPinMode, handleLocationCallback, defaultPins
                 <div tabIndex={0} className="business-registration-content">
                     <Link style={{color: 'white'}} onClick={() => user ? navigate('/business-registration') : navigate({ pathname: '/sign-in', search: `?${createSearchParams({redirectTo: '/business-registration'})}`})}>Register<br></br> Your Business Now!!</Link>
                 </div>
-                <div className='buisiness-registration-page-turn' style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/page-turn.svg)` }}>
+                <div className='buisiness-registration-page-turn' style={{ backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundImage: `url(${process.env.PUBLIC_URL}/page-turn.svg)` }}>
                 </div>
             </div>}
 

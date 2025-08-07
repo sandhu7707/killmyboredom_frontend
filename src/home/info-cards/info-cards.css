@@ -14,7 +14,7 @@
 .card-heading-overlay{
     height: 100%; 
     width: 100%;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.25s ease;
     background: radial-gradient(circle,rgba(0, 0, 0, 0.88) 0%,rgba(0, 0, 0, 0) 100%);
 }
 

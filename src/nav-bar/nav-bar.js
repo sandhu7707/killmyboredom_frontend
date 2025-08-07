@@ -20,7 +20,7 @@ export default function NavBar(props){
         <MdAccountCircle style={{display: 'block', marginInlineStart: 'auto'}} />
         <div className="collapsible-account-options">
             <Typography onClick={() => {navigate('/registered-businesses'); window.location.reload()}} className="account-option">Registered Businesses</Typography>
-            {/* <Typography onClick={() => navigate('/favorited-businesses')} className="account-option">Favorited Spots</Typography> */}
+            <Typography onClick={() => navigate('/favorited-businesses')} className="account-option">Favorited Spots</Typography>
             {/* <Typography className="account-option">Account Options</Typography> */}
             <Typography className="account-option" onClick={signOut}>Sign Out</Typography>
         </div>

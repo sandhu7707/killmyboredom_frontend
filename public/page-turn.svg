@@ -1,2 +1,42 @@
 <?xml version='1.0' encoding='utf-8'?>
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 3000 3000" > <style type="text/css"> .st0{fill:#ffffff00;} .st1{fill:url(#SVGID_1_); stroke:none} </style> <path class="st0" d="M-9.6,2990.6c0,0,178.9,0.4,404.9,1.7c281.8,1.7,694.3-21.2,979.2-317L2863,1310.8c0,0,124.8-130,114.4-340.6 c13-236.6,13-972.6,13-972.6l-3000,2V2990.6z"/> <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="1535.7714" y1="1513.9895" x2="2568.7444" y2="423.9846" gradientTransform="matrix(1 0 0 -1 0 2999.6802)"> <stop offset="0.2" style="stop-color:#F6F6F6"/> <stop offset="0.29" style="stop-color:#DADADC"/> <stop offset="0.36" style="stop-color:#CBCCCE"/> <stop offset="0.45" style="stop-color:#CCCDCF"/> <stop offset="0.48" style="stop-color:#D3D4D6"/> <stop offset="0.5" style="stop-color:#DFE0E1"/> <stop offset="0.52" style="stop-color:#F0F1F1"/> <stop offset="0.52" style="stop-color:#F2F3F3"/> </linearGradient> <path class="st1" d="M1311.5,2734.8c0,0,93.1-102,153.4-291.2c116.7-366.2,171.6-1050.5,171.6-1050.5s461.1,43.8,767.1,62.4 c272.3,16.6,414-103,414-103L1311.5,2734.8L1311.5,2734.8z"/> </svg>
+<svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    version="1.1" 
+    id="Layer_1" 
+    x="0px" 
+    y="0px" 
+    viewBox="1291.5 1332.5 1566.1 1627.1"
+>
+    <style type="text/css">
+        .st0{fill:#ffffff00;} .st1{fill:url(#SVGID_1_); stroke:none} 
+    </style> 
+    <path
+        class="st0"
+        d="M-9.6,2990.6c0,0,178.9,0.4,404.9,1.7c281.8,1.7,694.3-21.2,979.2-317L2863,1310.8c0,0,124.8-130,114.4-340.6 c13-236.6,13-972.6,13-972.6l-3000,2V2990.6z"
+    /> 
+    <linearGradient 
+        id="SVGID_1_" 
+        gradientUnits="userSpaceOnUse" 
+        x1="1535.7714" 
+        y1="1513.9895" 
+        x2="2568.7444" 
+        y2="423.9846" 
+        gradientTransform="matrix(1 0 0 -1 0 2999.6802)"
+    > 
+        <stop offset="0.2" style="stop-color:#F6F6F6"/> 
+        <stop offset="0.29" style="stop-color:#DADADC"/> 
+        <stop offset="0.36" style="stop-color:#CBCCCE"/> 
+        <stop offset="0.45" style="stop-color:#CCCDCF"/> 
+        <stop offset="0.48" style="stop-color:#D3D4D6"/> 
+        <stop offset="0.5" style="stop-color:#DFE0E1"/> 
+        <stop offset="0.52" style="stop-color:#F0F1F1"/> 
+        <stop offset="0.52" style="stop-color:#F2F3F3"/> 
+    </linearGradient> 
+    
+  <g transform="translate(15, 85) rotate(-2.7, 2064.6, 2043.7)">
+    <path 
+        class="st1" 
+        d="M1311.5,2734.8c0,0,93.1-102,153.4-291.2c116.7-366.2,171.6-1050.5,171.6-1050.5s461.1,43.8,767.1,62.4 c272.3,16.6,414-103,414-103L1311.5,2734.8L1311.5,2734.8z"
+    /> 
+    </g>
+    </svg>

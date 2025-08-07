@@ -28,7 +28,7 @@
 }
 
 .collapsible-account-options{
-    transition: max-height 1s ease;
+    transition: max-height 0.25s ease;
     overflow: hidden;
 }
 

@@ -117,7 +117,7 @@ export default function BusinessPage({businessData}){
                                 <div style={{overflow: 'auto'}}>
                                 {it.review}
                                 </div>
-                                {it.user_id === user.username && <IconButton onClick={() => handleDelete(it._id)}><MdDelete/></IconButton>}
+                                {user && it.user_id === user.username && <IconButton onClick={() => handleDelete(it._id)}><MdDelete/></IconButton>}
                             </div>
                             <div style={{textAlign: 'end', fontSize: 'x-small'}}>{it.creation_time}</div>
                         </div>

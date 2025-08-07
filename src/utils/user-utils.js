@@ -23,3 +23,7 @@ export function removeUserDetails(){
 export function addToken(json){
     return {...json, token: window.localStorage.getItem('jwt-token')}
 }
+
+export function getToken(){
+    return window.localStorage.getItem('jwt-token')
+}

@@ -24,7 +24,7 @@
 .inactive-map-overlay {
     z-index: 1;
     position: absolute;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.25s ease;
     top: 0;
 }
 
@@ -36,7 +36,7 @@
 .map-overlay-menu {
     height: 20%;
     width: 100%;
-    transition: height 0.5s ease;
+    transition: height 0.25s ease;
 }
 
 .map-overlay-heading{
@@ -65,10 +65,10 @@
     bottom: 0;
     height: 15vw;
     width: 15vw;
-    background: linear-gradient(45deg, #000000d4 0%, #000000d4 30%,#ffffff00 31%, #ffffff00 100%);
+    background: linear-gradient(45deg, #000000d4 0%, #000000d4 47.5%, #ffffff00 50%, #ffffff00 100%);
     shape-rendering: crispEdges;
     z-index: 2;
-    transition: height 0.5s ease, width 0.5s ease;
+    transition: height 0.25s ease, width 0.25s ease;
 }
 
 .business-registration:not(:hover) button{
@@ -78,7 +78,7 @@
 
 .business-registration:hover button{
     
-    transition: background-color 1s ease, color 1s ease;
+    transition: background-color 0.25s ease, color 1s ease;
 }
 
 .business-registration-content{
@@ -94,11 +94,23 @@
 }
 
 .business-registration:hover, .business-registration:focus{
-    height: 50vw;
-    width: 50vw;
     border: 0;
     color: #ffffff;
-    transition: height 0.5s ease, width 0.5s ease, color 0.5s ;
+    transition: height 0.25s ease, width 0.25s ease, color 0.25s ;
+}
+
+@media  screen and (orientation: landscape) {    
+    .business-registration:hover, .business-registration:focus{
+        height: 60vw;
+        width: 60vw;
+    }
+}
+
+@media  screen and (orientation: portrait) {    
+    .business-registration:hover, .business-registration:focus{
+        height: 90vw;
+        width: 90vw;
+    }
 }
 
 .business-registration-content{
@@ -117,7 +129,7 @@
 }
 
 .business-registration-content:focus button, .business-registration-content:hover button{
-    transition: font-size 0.5s ease;
+    transition: font-size 0.25s ease;
     font-size: 1.2vw;
 }
 
