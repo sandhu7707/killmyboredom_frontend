@@ -1,9 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import MapArea from "../map-area/map-area";
 import InfoCards from "./info-cards/info-cards";
 import IconButton from '@mui/joy/IconButton'
 import { AiFillCaretUp } from "react-icons/ai";
 import './home.css'
+import SignInUser from "../signin-user/signin-user";
+import { UserContext } from "../utils/user-utils";
 
 const cardsInfo = {cardsInfo: [
   { headingId: 'card-0', imgSrc: '/gyms.png', heading: 'Explore Gyms', description: 'Find Gyms near you!' },
@@ -21,6 +23,7 @@ export default function Home() {
   const easyScrollButtonRef = useRef(null)
   const greetScreenRef = useRef(null)
   const innerHeightRef = useRef(null)
+  const websiteDescriptionRef = useRef(null)
 
   const html = document.getElementsByTagName('html')[0];
   const body = document.getElementsByTagName('html')[0];
@@ -60,7 +63,7 @@ export default function Home() {
       else{
         scrollValue = scrollVal
       }
-      handleScrollDrivenAnimations(scrollVal, appNameContainerRef.current, cardsRef.current, easyScrollButtonRef.current, innerHeightRef.current, cardsContainerRef.current)
+      handleScrollDrivenAnimations(scrollVal, appNameContainerRef.current, cardsRef.current, easyScrollButtonRef.current, innerHeightRef.current, cardsContainerRef.current, websiteDescriptionRef.current)
 
       animationLoopId = requestAnimationFrame(handleAnimations)
     }
@@ -72,11 +75,16 @@ export default function Home() {
     }
   }, [])
 
+  let {user} = useContext(UserContext)
   return (
     <div className="home-container">
       <div className="translating-content">
         <div ref={greetScreenRef} id="greet-screen" className="greet-screen">
-
+          <div className="sign-in-container" style={{backgroundColor: 'rgba(0, 0, 0, 0.52)', position: 'absolute'}}>
+            {!user && <div style={{width: '80%', margin: 'auto'}}>
+              <SignInUser lightFonts={true}/>
+            </div>}
+          </div>
           <div ref={appNameContainerRef} className='app-name-container'>
             <div ref={appNameRef} id="appName" className='app-name'>
               Kill Your <br></br> Boredom
@@ -85,6 +93,9 @@ export default function Home() {
           <video ref={videoRef} id="greet-video" autoPlay muted loop className="greet-video-start">
             <source src="demo_video.mp4"></source>
           </video>
+        </div>
+        <div ref={websiteDescriptionRef} style={{transition: 'color 0.25s ease',  padding: '2vh', margin: '3vh', fontSize: '3vh', fontWeight: '500'}}>
+          Join us in our aim of platforming all the gyms and trainers in your loacility and create an open reference for the benefit of all! <br></br><br></br>... or feel free to explore the spots of interest near you and kill your boredom!
         </div>
         <div ref={cardsContainerRef} id="horizontal-cards" className="horizontal-cards">
           <div ref={cardsRef} id="horizontal-cards-content">
@@ -111,7 +122,7 @@ export default function Home() {
   )
 }
 
-function handleScrollDrivenAnimations(scrollValue, appName, cards, easyScrollButton, innerHeight, cardsContainer) {
+function handleScrollDrivenAnimations(scrollValue, appName, cards, easyScrollButton, innerHeight, cardsContainer, websiteDescription) {
 
   if (scrollValue < innerHeight / 2) {
     appName.style.color = 'white'
@@ -124,6 +135,8 @@ function handleScrollDrivenAnimations(scrollValue, appName, cards, easyScrollBut
     }
     cards.style.transform = `translateX(0px)`
     easyScrollButton.style.visibility = 'hidden'
+    websiteDescription.style.color = 'rgba(0,0,0,0)'
+    websiteDescription.style.border = '0'
   }
   else {
     if (innerHeight > window.innerWidth) {
@@ -135,6 +148,9 @@ function handleScrollDrivenAnimations(scrollValue, appName, cards, easyScrollBut
   }
 
   if (scrollValue > innerHeight/2 && scrollValue <  innerHeight) {
+    websiteDescription.style.border = 'dashed 0.75vh black'
+    websiteDescription.style.borderRadius = '3vh'
+    websiteDescription.style.color = 'rgba(0, 0, 0, 0.71)'
 
 
     let newScrollValue = scrollValue - innerHeight/2

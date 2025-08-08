@@ -16,7 +16,7 @@ const checkIfUsernameAlreadyExists = async (username) => {
 }
 
 export const signInSchema = object({
-    username: string().min(3, 'Username must be at least 3 characters').required(),
+    username: string().min(3, 'Username must be at least 3 characters').matches(/^\S*$/, "Username can't contain any spaces").required(),
     password: string().min(3, 'Password must be at least 3 characters').required('Required Field')
 })
 export const profileDetailsSchema = object({
@@ -24,12 +24,12 @@ export const profileDetailsSchema = object({
         'already-exists',
         () => `Username already exists`,
         checkIfUsernameAlreadyExists
-    ).required('Required Field'),
+    ).matches(/^\S*$/, "Username can't contain any spaces!").required('Required Field'),
     password: string().min(3, 'Password must be at least 3 characters').required('Required Field'),
     confirmPassword: string().when('password', ([password]) => {
         return string().matches(`^${password}$`, 'Password and Confirm Password field must match').required('Required Field')
     }),
-    email: string().matches(/[^@]*[@][^@]*[.]\w{2,6}/, 'Please enter a valid email').nullable().transform((value) => (value === '' ? null : value)),
+    email: string().matches(/^[\w]*[@][a-z]*[.]\w{2,6}$/, 'Please enter a valid email').nullable().transform((value) => (value === '' ? null : value)),
     phone: number().min(1000000000, 'Mobile number has to be 10 digits').max(9999999999, 'Mobile number has to be 10 digits').nullable().transform((value) => (value === '' || !value ? null : value))
 }).test('global', 'At least one of the email or phone number must be present', (value) => {
     return value.email || value.phone
@@ -51,7 +51,7 @@ export const businessDetailsSchema = object({
                 default: console.error('unrecognized value in contacts key')            }
         }).required('Required Field')
     })).min(1).required('Required Field'),
-    website: string().matches(/([h][t][t][p][s]?:[/][/].+)?[.]\w{2,6}[/]?.*/, 'Please enter a valid Website')
+    website: string().matches(/^((http)?[s]?:[/][/])?[\w]{2,6}[.][\w]+[.]\w{2,6}[/]?$/, 'Please enter a valid Website')
 })
 
 export const gymServiceSchema = object({

@@ -9,7 +9,7 @@ import { useNavigate, useSearchParams } from "react-router";
 import { signInSchema } from "../business-registration/form-validation-utils/form-schemas";
 import "./signin-user.css"
 
-export default function SignInUser(){
+export default function SignInUser({lightFonts=false}){
 
     const [showPassword, setShowPassword] = useState(false)
     const [formData, setFormData] = useState({
@@ -55,6 +55,8 @@ export default function SignInUser(){
         .catch(err => console.error(err))
     }
 
+    let fontColor = lightFonts ? 'white' : 'black'
+
     return <div>
         <InternalFormComponent
          style={{width: '100%', marginInline:'auto', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center'}}
@@ -63,21 +65,21 @@ export default function SignInUser(){
          setFormData={setFormData} 
          onSubmit={handleSubmit}>
             <InternalInputFieldComponent
-                sx={{backgroundColor: 'rgb(0,0,0,0)', color: 'black', borderTop: '0', borderInline: '0', borderRadius: '0', marginBlockStart: '2vh'}}
+                sx={{backgroundColor: 'rgb(0,0,0,0)', color: fontColor, borderTop: '0', borderInline: '0', borderRadius: '0', marginBlockStart: '2vh'}}
                 name='username'
                 placeholder={'Username'}
                 label={false}
             />
             <InternalInputFieldComponent
-                sx={{backgroundColor: 'rgb(0,0,0,0)', color: 'black', borderTop: '0', borderInline: '0', borderRadius: '0', marginBlockStart: '2vh'}}
+                sx={{backgroundColor: 'rgb(0,0,0,0)', color: fontColor, borderTop: '0', borderInline: '0', borderRadius: '0', marginBlockStart: '2vh'}}
                 name='password'
                 placeholder={'Password'}
                 label={false}
-                endDecorator={<IconButton onClick={() => setShowPassword(showPassword => !showPassword)}>{showPassword ? <MdOutlineVisibilityOff color="black" /> : <MdOutlineVisibility color="black"/>}</IconButton>}
+                endDecorator={<IconButton onClick={() => setShowPassword(showPassword => !showPassword)}>{showPassword ? <MdOutlineVisibilityOff color={fontColor} /> : <MdOutlineVisibility color={fontColor}/>}</IconButton>}
                 type={showPassword ? 'text' : 'password'}
             />
             <InternalSubmitButtonComponent label={'Sign In'} position="left"/>
-            <p style={{color: 'black', marginLeft: 'auto'}}><a style={{color: 'black'}} href="/register-user">Create a new Account</a></p>
+            <p style={{color: fontColor, marginLeft: 'auto'}}><a style={{color: fontColor}} href="/register-user">Create a new Account</a></p>
             
         </InternalFormComponent>
     </div>

@@ -6,7 +6,7 @@ import LocationSearch from './location-search/location-search'
 import { createSearchParams, useNavigate } from 'react-router'
 import Typography from '@mui/joy/Typography'
 import IconButton from '@mui/joy/IconButton'
-import { MdPushPin } from "react-icons/md";
+import { MdPanToolAlt, MdPushPin } from "react-icons/md";
 import { useContext } from 'react'
 import { UserContext } from '../utils/user-utils'
 import { api_business_coords } from '../utils/constants'
@@ -198,6 +198,8 @@ export default function MapArea({ isPinMode, handleLocationCallback, defaultPins
                         <div className='map-overlay-heading' style={{ display: 'flex', width: '100%', color: 'black' }}>
                             {!enterManually && !isMapActive &&
                                 <>
+                                    <h2 style={{color: '#00000082'}}>Start Exploring</h2>
+                            
                                     <Button className="generic-button" onClick={detectLocation} sx={{ width: '50%', marginInline: 'auto', marginBlock: '2%' }}>Detect Location</Button>
                                     or
                                     <Button className="generic-button" onClick={() => { setEnterManually(true) }} sx={{ width: '50%', marginInline: 'auto', marginBlock: '2%' }}>Enter Manually</Button>
@@ -231,8 +233,8 @@ export default function MapArea({ isPinMode, handleLocationCallback, defaultPins
                 </IconButton>
             }
             {!isPinMode && <div tabIndex={0} className="business-registration">
-                <div tabIndex={0} className="business-registration-content">
-                    <Link style={{color: 'white'}} onClick={() => user ? navigate('/business-registration') : navigate({ pathname: '/sign-in', search: `?${createSearchParams({redirectTo: '/business-registration'})}`})}>Register<br></br> Your Business Now!!</Link>
+                <div tabIndex={0} className="business-registration-content" style={{backgroundImage: `url(${process.env.PUBLIC_URL}/sticker_badge.svg)`, margin: '10%', width: '30%', height: '30%', backgroundRepeat: 'no-repeat', backgroundSize: 'contain'}}>
+                    <Link style={{color: 'white', textDecoration: 'none'}} onClick={() => user ? navigate('/business-registration') : navigate({ pathname: '/sign-in', search: `?${createSearchParams({redirectTo: '/business-registration'})}`})}>Register<br></br> Your Business<br></br> Now!! <br></br><MdPanToolAlt/></Link>
                 </div>
                 <div className='buisiness-registration-page-turn' style={{ backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundImage: `url(${process.env.PUBLIC_URL}/page-turn.svg)` }}>
                 </div>

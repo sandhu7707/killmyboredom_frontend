@@ -103,6 +103,9 @@
     .business-registration:hover, .business-registration:focus{
         height: 60vw;
         width: 60vw;
+        font-size: 2vw;
+        /* background-image: url('/sticker_badge.svg');
+        background-size: contain; */
     }
 }
 
@@ -110,6 +113,7 @@
     .business-registration:hover, .business-registration:focus{
         height: 90vw;
         width: 90vw;
+        font-size: 3vw;
     }
 }
 

@@ -13,7 +13,7 @@ import { createSearchParams, useNavigate } from "react-router"
 import { Button, DialogTitle, Input, Modal, ModalDialog } from "@mui/joy"
 import { api_favorite_business, api_reviews } from "../utils/constants"
 
-export default function BusinessPage({businessData}){
+export default function BusinessPage({businessData, isDraft}){
     const [openModal, setOpenModal] = useState(false)
     const [review, setReview] = useState('')
 
@@ -101,7 +101,7 @@ export default function BusinessPage({businessData}){
                     }
                 </>)}
             </div>
-            <div className="business-page-footer" style={{padding: '2vh'}}>
+            {!isDraft && <div className="business-page-footer" style={{padding: '2vh'}}>
                 
                 {(!user || (user && user.username !== businessData.admin_user_id)) && <Button className="generic-button" style={{display: 'block', marginBlockEnd: '2vh'}} onClick={handleFavorite}><MdFavorite/>{ !user || !user.favorites || (user && user.favorites && !user.favorites.includes(businessData._id)) ? 'Favorite this spot!' : 'Unfavorite this spot ?'}</Button>}
                 
@@ -135,7 +135,7 @@ export default function BusinessPage({businessData}){
                     </div>
                     :   <Button className="generic-button" onClick={() => setOpenModal(true)}>Add a review</Button>}
                 </div>
-            </div>
+            </div>}
         </>
     )
 

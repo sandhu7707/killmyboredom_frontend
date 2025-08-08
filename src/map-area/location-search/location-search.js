@@ -84,7 +84,7 @@ export default function LocationSearch({formatOverlaysForBlur, formatOverlaysFor
     return (
         <div className='search-container'>
             <form onSubmit={handleLocationSearchSubmit} style={{ display: 'flex' }}>
-                <Input ref={inputRef} onChange={handleInputChange} className='map-input' variant='plain' placeholder={`Enter location to start`} onFocus={formatOverlaysForFocus} onBlur={formatOverlaysForBlur} sx={{ backgroundColor: '#000000d4', color: 'white', flexGrow: 1, marginInline: '1vw', '&::before': { display: 'none' }, ':focus-within': { border: 'white solid 2px' } }}
+                <Input ref={inputRef} onChange={handleInputChange} className='map-input' variant='plain' placeholder={`Enter location to start`} onFocus={formatOverlaysForFocus} onBlur={formatOverlaysForBlur} sx={{ backgroundColor: '#000000d4', color: 'white', flexGrow: 1, marginInline: '1vw', '&::before': { display: 'none' }, ':focus-within': { border: 'white solid 2px', color: 'white' } }}
                     endDecorator={<IconButton variant='solid' sx={{ backgroundColor: '#000000d4' }} type='submit'>
                         <MdOutlineSearch />
                     </IconButton>}
